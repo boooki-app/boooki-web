@@ -45,6 +45,6 @@ jobs:
           ssh-keyscan -H $DEPLOY_HOST >> ~/.ssh/known_hosts
           echo "Host $DEPLOY_HOST" > ~/.ssh/config
           echo "  IdentityFile $(pwd)/private_key.pem" >> ~/.ssh/config
-          rsync -avz --delete --exclude-from=.deployignore ./ $DEPLOY_USER@$DEPLOY_HOST:/www/boooki-alpha
-          ssh $DEPLOY_USER@$DEPLOY_HOST "cd /www/boooki-alpha && npm ci && NODE_ENV=alpha pm2 restart boooki-alpha"
+          rsync -avz --delete --exclude-from=.deployignore ./ $DEPLOY_USER@$DEPLOY_HOST:/home/$DEPLOY_USER/www/boooki-alpha
+          ssh $DEPLOY_USER@$DEPLOY_HOST "cd /home/$DEPLOY_USER/www/boooki-alpha && npm ci && NODE_ENV=alpha pm2 restart boooki-alpha"
           rm -f private_key.pem
