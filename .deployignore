@@ -1,0 +1,25 @@
+# Fichiers et dossiers liés à la configuration du projet
+.git
+.github
+.gitignore
+.deployignore
+README.md
+
+# Dossiers des dépendances
+node_modules
+
+# Dossiers de développement et de construction
+.cache
+.next
+dist
+public/static
+
+# Fichiers de configuration
+.env.development
+.env.staging
+.env.production.local
+.env.test
+.env.local
+
+# Fichiers de logs
+*.log

@@ -15,6 +15,15 @@ module.exports = {
       '6xl': '4rem',
     },
     extend: {
+      backgroundColor: {
+        primary: 'rgba(63, 193, 201, 1)',
+      },
+      textColor: {
+        primary: 'rgba(63, 193, 201, 1)',
+      },
+      borderColor: {
+        primary: 'rgba(63, 193, 201, 1)',
+      },
       colors: {
         gray: {
           100: '#f7fafc',
