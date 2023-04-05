@@ -18,7 +18,7 @@ jobs:
       - name: Install dependencies & build
         run: |
           yarn install --frozen-lockfile
-          yarn run build
+          yarn run build:alpha
 
       - name: Code quality checks
         run: |

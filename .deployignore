@@ -1,5 +1,4 @@
 # Fichiers et dossiers liés à la configuration du projet
-.git
 .github
 .gitignore
 .deployignore

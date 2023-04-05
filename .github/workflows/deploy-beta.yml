@@ -10,36 +10,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: 18
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build Next.js app
-        run: npm run build
-
-      - name: Install rsync and ssh-agent
+      - name: Install dependencies & build
         run: |
-          sudo apt-get update
-          sudo apt-get install -y rsync
-          sudo apt-get install -y openssh-client
+          yarn install --frozen-lockfile
+          yarn run build:beta
 
-      - name: Deploy to VPS
-        env:
-          PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
-          DEPLOY_HOST: ${{ secrets.DEPLOY_SSH_IP }}
-          DEPLOY_USER: ${{ secrets.DEPLOY_SSH_USER }}
+      - name: Code quality checks
         run: |
-          echo "$PRIVATE_KEY" | base64 --decode > private_key.pem
-          chmod 600 private_key.pem
-          echo "Host $DEPLOY_HOST" > ~/.ssh/config
-          echo "  IdentityFile $(pwd)/private_key.pem" >> ~/.ssh/config
-          rsync -avz --delete --exclude-from=.deployignore ./ $DEPLOY_USER@$DEPLOY_HOST:/www/boooki-beta
-          ssh $DEPLOY_USER@$DEPLOY_HOST "cd /www/boooki-beta && npm ci && NODE_ENV=beta pm2 restart boooki-beta"
-          rm -f private_key.pem
+          yarn run lint
+          yarn run check-types
+
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEPLOY_SSH_IP }}
+          username: ${{ secrets.DEPLOY_SSH_USER }}
+          password: ${{ secrets.DEPLOY_SSH_PASSWORD }}
+          script: |
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
+            cd /home/debian/www/boooki-beta
+            git fetch origin
+            git reset --hard origin/staging
+            yarn install --frozen-lockfile
+            yarn run build:beta
+            pm2 start ecosystem.config.js --only boooki-beta

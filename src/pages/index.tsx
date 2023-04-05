@@ -11,12 +11,7 @@ const test = process.env.NEXT_PUBLIC_APP_ENV;
 const Index = () => {
   return (
     <Main
-      meta={
-        <Meta
-          title={`Boooki ${test}`}
-          description="Next js Boilerplate is the perfect starter code for your project. Build your React application with the Next.js framework."
-        />
-      }
+      meta={<Meta title={`Boooki ${test}`} description="Boooki landing page" />}
     >
       <Headline />
       <Benefits />
