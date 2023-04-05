@@ -38,7 +38,7 @@ jobs:
           PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
           DEPLOY_HOST: ${{ secrets.DEPLOY_SSH_IP }}
           DEPLOY_USER: ${{ secrets.DEPLOY_SSH_USER }}
-          DEPLOY_FOLDER: "www/boooki-alpha"
+          DEPLOY_FOLDER: "boooki-alpha"
         run: |
           echo "$PRIVATE_KEY" | base64 --decode > private_key.pem
           chmod 600 private_key.pem
