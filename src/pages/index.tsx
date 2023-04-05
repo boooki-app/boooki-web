@@ -6,12 +6,14 @@ import Headline from '@/components/Headline';
 import { Meta } from '@/layouts/Meta';
 import { Main } from '@/templates/Main';
 
+const test = process.env.NEXT_PUBLIC_APP_ENV;
+
 const Index = () => {
   return (
     <Main
       meta={
         <Meta
-          title="Next.js Boilerplate Presentation"
+          title={`Boooki ${test}`}
           description="Next js Boilerplate is the perfect starter code for your project. Build your React application with the Next.js framework."
         />
       }

@@ -1,9 +1,14 @@
 {
-  "name": "next-js-boilerplate",
-  "version": "3.8.2",
+  "name": "boooki-web",
+  "version": "1.0.0",
   "scripts": {
     "dev": "next dev",
+    "dev:alpha": "cp .env.alpha .env.local && next dev",
+    "dev:beta": "cp .env.beta .env.local && next dev",
     "build": "next build",
+    "build:alpha": "cp .env.alpha .env.local && next build",
+    "build:beta": "cp .env.beta .env.local && next build",
+    "build:production": "cp .env.production .env.local && next build",
     "start": "next start",
     "build-stats": "cross-env ANALYZE=true npm run build",
     "export": "next export",
