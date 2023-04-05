@@ -31,10 +31,10 @@ jobs:
           host: ${{ secrets.DEPLOY_SSH_IP }}
           username: ${{ secrets.DEPLOY_SSH_USER }}
           key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
-        script: |
-          cd /home/debian/www/boooki-alpha
-          git fetch origin
-          git reset --hard origin/develop
-          npm ci
-          npm run build
-          pm2 start ecosystem.config.js --only boooki-alpha
+          script: |
+            cd /home/debian/www/boooki-alpha
+            git fetch origin
+            git reset --hard origin/develop
+            npm ci
+            npm run build
+            pm2 start ecosystem.config.js --only boooki-alpha
