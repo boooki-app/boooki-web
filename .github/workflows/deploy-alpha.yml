@@ -38,6 +38,7 @@ jobs:
           PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
           DEPLOY_HOST: ${{ secrets.DEPLOY_SSH_IP }}
           DEPLOY_USER: ${{ secrets.DEPLOY_SSH_USER }}
+          DEPLOY_FOLDER: "www/boooki-alpha"
         run: |
           echo "$PRIVATE_KEY" | base64 --decode > private_key.pem
           chmod 600 private_key.pem
@@ -45,6 +46,6 @@ jobs:
           ssh-keyscan -H $DEPLOY_HOST >> ~/.ssh/known_hosts
           echo "Host $DEPLOY_HOST" > ~/.ssh/config
           echo "  IdentityFile $(pwd)/private_key.pem" >> ~/.ssh/config
-          rsync -avz --delete --exclude-from=.deployignore ./ $DEPLOY_USER@$DEPLOY_HOST:/home/$DEPLOY_USER/www/boooki-alpha
-          ssh $DEPLOY_USER@$DEPLOY_HOST "bash -c 'cd /home/$DEPLOY_USER/www/boooki-alpha && npm ci && npm run build:alpha && pm2 restart boooki-alpha'"
+          rsync -avz --delete --exclude-from=.deployignore ./ $DEPLOY_USER@$DEPLOY_HOST:/home/$DEPLOY_USER/www/$DEPLOY_FOLDER
+          ssh $DEPLOY_USER@$DEPLOY_HOST "bash -c 'source ~/.bashrc && nvm use 18 && cd /home/$DEPLOY_USER/www/$DEPLOY_FOLDER && npm ci && npm run build:alpha && pm2 restart $DEPLOY_FOLDER'"
           rm -f private_key.pem
