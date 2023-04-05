@@ -38,8 +38,6 @@ jobs:
           PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
           DEPLOY_HOST: ${{ secrets.DEPLOY_SSH_IP }}
           DEPLOY_USER: ${{ secrets.DEPLOY_SSH_USER }}
-        with:
-          node-version: 16
         run: |
           echo "$PRIVATE_KEY" | base64 --decode > private_key.pem
           chmod 600 private_key.pem
