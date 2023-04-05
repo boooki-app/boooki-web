@@ -5,7 +5,7 @@ module.exports = {
       script: 'npm',
       args: 'start',
       env: {
-        NODE_ENV: 'alpha',
+        NODE_ENV: 'production',
         PORT: 5000,
       },
     },
@@ -14,7 +14,7 @@ module.exports = {
       script: 'npm',
       args: 'start',
       env: {
-        NODE_ENV: 'beta',
+        NODE_ENV: 'production',
         PORT: 7000,
       },
     },
@@ -24,7 +24,7 @@ module.exports = {
       args: 'start',
       env: {
         NODE_ENV: 'production',
-        PORT: 3002,
+        PORT: 3000,
       },
     },
   ],
