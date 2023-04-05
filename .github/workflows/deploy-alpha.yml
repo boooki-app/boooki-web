@@ -37,6 +37,6 @@ jobs:
             cd /home/debian/www/boooki-alpha
             git fetch origin
             git reset --hard origin/develop
-            npm ci
-            npm run build:alpha
+            yarn install --frozen-lockfile
+            yarn run build:alpha
             pm2 start ecosystem.config.js --only boooki-alpha
